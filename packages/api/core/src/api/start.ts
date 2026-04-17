@@ -301,6 +301,11 @@ export default autoTrace(
           lastSpawned.kill('SIGTERM');
         }
       });
+
+      if (process.stdin.isTTY) {
+        process.on('exit', () => process.stdin.setRawMode(false));
+      }
+
       process.stdin.resume();
     }
 
